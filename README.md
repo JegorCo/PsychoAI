@@ -1,2 +1,0 @@
-# PsychoAI
-AI Psychologist Frontend

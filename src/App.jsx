@@ -21,10 +21,20 @@ ChartJS.register(
 
 function App() {
   const [vkLink, setVkLink] = useState('');
+  const [error, setError] = useState('');
   const [personalityMetrics, setPersonalityMetrics] = useState({
     extraversion: 75,
     coordinates: { x: 75, y: 25 }
   });
+
+  const handleSubmit = () => {
+    if (!vkLink.trim()) {
+      setError('Введено пустое поле');
+    } else {
+      setError('');
+      // Handle submission logic here
+    }
+  };
 
   const radarData = {
     labels: ['Экстраверсия', 'Нейротизм', 'Доброжелательность', 'Добросовестность', 'Открытость опыту'],
@@ -88,14 +98,23 @@ function App() {
         <div className="bg-[#33A9FF] rounded-2xl p-8 mb-8">
           <h2 className="text-center text-white text-xl mb-4">Введите ссылку на страницу ВК</h2>
           <div className="flex flex-col items-center space-y-4">
-            <input
-              type="text"
-              value={vkLink}
-              onChange={(e) => setVkLink(e.target.value)}
-              placeholder="https://vk.com/jegor_ka"
-              className="w-full p-3 rounded-lg bg-white text-[#827878] placeholder-[#827878] focus:outline-none"
-            />
-            <button className="bg-[#000B76] text-white px-8 py-3 rounded-full text-lg hover:bg-opacity-90">
+            <div className="w-full">
+              <input
+                type="text"
+                value={vkLink}
+                onChange={(e) => {
+                  setVkLink(e.target.value);
+                  setError('');
+                }}
+                placeholder="https://vk.com/jegor_ka"
+                className="w-full p-3 rounded-lg bg-white text-[#827878] placeholder-[#827878] focus:outline-none"
+              />
+              {error && <div className="text-white mt-2">{error}</div>}
+            </div>
+            <button 
+              onClick={handleSubmit}
+              className="bg-[#000B76] text-white px-8 py-3 rounded-full text-lg hover:bg-opacity-90"
+            >
               Составить описание
             </button>
           </div>
@@ -103,7 +122,7 @@ function App() {
 
         {/* Personality Pentagon Chart */}
         <div className="mb-8">
-          <h3 className="text-black text-lg mb-4">▼ Карточка по большой пятёрке</h3>
+          <h3 className="text-black text-lg mb-4">Карточка по большой пятёрке</h3>
           <div className="bg-[#FFB5F5] rounded-2xl p-6">
             <div className="w-full max-w-md mx-auto">
               <Radar data={radarData} options={radarOptions} />
