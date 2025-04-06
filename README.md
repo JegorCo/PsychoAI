@@ -3,7 +3,7 @@
 Для того чтобы запустить:
 
 ```
- git clone
+ git clone https://github.com/JegorCo/PsychoAI.git
 ```
 
 ```
